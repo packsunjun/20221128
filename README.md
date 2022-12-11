@@ -10,10 +10,6 @@ DOM 객체의 addEventListener() 메소드 이용
 
 익명함수 - 해당 파일에서만 사용
 
-★
-함수 - 1번이상 사용
-익명 - 1번만 사용
-
 이벤트 객체 - 이벤트 발생 순간 이벤트 정보 까지 담아서 제공함
 1. 발생한 이벤트에 관련된 다양한 정보를 담은 객체
 2. 예) mousedown 이벤트의 경우, 마우스 좌표와 버튼 번호 등
@@ -24,6 +20,33 @@ DOM 객체의 addEventListener() 메소드 이용
 1. 이름을 가진 이벤트 리스너
 2. 익명 함수의 경우
 3. HTML 태그에 이벤트 리스너 : event 라는 이름으로 전달
+> <script>
+            var div = document.getElementById("div"); // 이벤트 메시지 출력 공간
+            var button = document.getElementById("button");
+
+            // body 객체에 캡쳐 리스너 등록
+            document.body.addEventListener("click", capture, true); // 켭쳐 단계(1) 
+
+            // 타겟 객체에 버블 리스너 등록
+            button.addEventListener("click", bubble, false); // 버블 단계(2)
+
+            // body 객체에 버블 리스너 등록
+            document.body.addEventListener("click", bubble, false); // 버블 단계(3)
+
+            function capture(e) { // e는 이벤트 객체
+                let obj = e.currentTarget; // 현재 이벤트를 받은  DOM 객체
+                let tagName = obj.tagName; // 태그 이름
+                div.innerHTML += "<br>capture 단계 : " + tagName + " 태그 " + e.type + "이벤트";
+            }
+
+            function bubble(e) { // e는 이벤트 객체
+                let obj = e.currentTarget; // 현재 이벤트를 받은  DOM 객체
+                let tagName = obj.tagName; // 태그 이름
+                div.innerHTML += "<br>bubble 단계 : " + tagName + " 태그 " + e.type + "이벤트";
+            }
+        </script>
+	
+![3](https://user-images.githubusercontent.com/112832753/206889510-f47c00ea-1657-44db-8b48-c25653c600af.PNG)
 
 이벤트 리스너 작성 방법 4 가지 
 (1) HTML 태그
